@@ -1,0 +1,23 @@
+{
+  "name": "tracalorie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bozhenova/tracalorie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bozhenova/tracalorie/issues"
+  },
+  "homepage": "https://github.com/bozhenova/tracalorie#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
