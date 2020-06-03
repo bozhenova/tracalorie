@@ -1,12 +1,14 @@
 import ItemController from './ItemController';
 import UIController from './UIController';
+import StorageController from './StorageController';
 
-export default class AppController {
+export default class App {
   constructor() {
     this.itemController = new ItemController();
     this.items = this.itemController.getItems();
     this.uiController = new UIController();
     this.UISelectors = this.uiController.getSelectors();
+    this.storage = new StorageController();
   }
 
   init() {
@@ -81,9 +83,10 @@ export default class AppController {
     if (input.name && input.calories) {
       const newItem = this.itemController.addItem(input.name, input.calories);
       this.uiController.addListItem(newItem);
+      this.storage.storeItem(newItem);
       this.uiController.clearInput();
+      this.updateCalories();
     }
-    this.updateCalories();
   }
 
   itemEditClick(e) {
@@ -108,15 +111,18 @@ export default class AppController {
       input.calories
     );
     this.uiController.updateListItem(updatedItem);
+    this.storage.updateItemStorage(updatedItem);
     this.updateOnChange();
   }
 
   itemDeleteSubmit(e) {
     e.preventDefault();
-
     const currentItem = this.itemController.getCurrentItem();
-    this.itemController.deleteItem(currentItem.id);
     this.uiController.deleteListItem(currentItem.id);
+    this.updateCalories();
+
+    this.itemController.deleteItem(currentItem.id);
+    this.storage.deleteItemFromStorage(currentItem.id);
     this.updateOnChange();
   }
 
@@ -132,7 +138,9 @@ export default class AppController {
     this.itemController.clearAllItems();
     const items = this.itemController.getItems();
     this.uiController.updateItemsList(items);
-    this.uiController.hideList();
     this.updateCalories();
+    this.storage.clearItemsFromStorage();
+    this.uiController.hideList();
   }
 }
+//добавить суточный калораж и остаток калорий, API c калориями

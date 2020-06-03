@@ -6,9 +6,6 @@ export default class ItemController {
     this.state = JSON.parse(JSON.stringify(INITIAL_STATE));
   }
 
-  logData() {
-    console.log(this.state);
-  }
   getItems() {
     return this.state.items;
   }
@@ -22,6 +19,7 @@ export default class ItemController {
 
   addItem(name, calories) {
     let ID;
+    debugger;
     if (this.state.items.length) {
       ID = this.state.items[this.state.items.length - 1].id + 1;
     } else {
@@ -54,7 +52,11 @@ export default class ItemController {
   }
 
   deleteItem(id) {
-    this.state.items.splice(id, 1);
+    const ids = this.state.items.map(item => {
+      return item.id;
+    });
+    const index = ids.indexOf(id);
+    this.state.items.splice(index, 1);
   }
 
   clearAllItems() {

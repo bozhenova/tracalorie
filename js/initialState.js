@@ -1,5 +1,9 @@
+import StorageController from './StorageController';
+
+const storage = new StorageController();
+
 export const INITIAL_STATE = Object.freeze({
-  items: [],
+  items: storage.getItemsFromStorage(),
   currentItem: null,
   totalCalories: 0
 });
